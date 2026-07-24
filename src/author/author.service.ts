@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Author } from './entities/author.entity';
 import { CreateAuthorDto } from './dto/create-author.dto';
 
@@ -21,19 +25,35 @@ export class AuthorService {
     return this.authors;
   }
 
-  save(author: CreateAuthorDto): Author {
+  save(createAuthorDto: CreateAuthorDto): Author {
+    if (
+      this.authors.find(
+        (author) =>
+          author.lastname === createAuthorDto.lastname &&
+          author.firstname === createAuthorDto.firstname,
+      )
+    ) {
+      throw new BadRequestException(
+        `The author ${createAuthorDto.firstname} ${createAuthorDto.lastname} already exists`,
+      );
+    }
+
     const authorId =
       (this.authors.sort((a, b) => a.id - b.id).at(-1)?.id ?? 0) + 1;
     const newAuthor = {
       id: authorId,
-      lastname: author.lastname,
-      firstname: author.firstname,
+      lastname: createAuthorDto.lastname,
+      firstname: createAuthorDto.firstname,
     };
     this.authors.push(newAuthor);
     return newAuthor;
   }
 
   findById(id: number) {
-    return this.authors.find((author) => author.id === id);
+    const author = this.authors.find((author) => author.id === id);
+    if (!author) {
+      throw new NotFoundException(`Author with id ${id} not found`);
+    }
+    return author;
   }
 }

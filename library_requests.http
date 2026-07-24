@@ -2,7 +2,7 @@
 GET http://localhost:3000/author
 
 ### GET an author by its id
-@id =
+@id = 3
 GET http://localhost:3000/author/{{id}}
 
 ### POST Create an author
