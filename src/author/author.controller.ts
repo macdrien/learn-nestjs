@@ -1,6 +1,14 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
 import { AuthorService } from './author.service';
 import { Author } from './entities/author.entity';
+import { CreateAuthorDto } from './dto/create-author.dto';
 
 @Controller('author')
 export class AuthorController {
@@ -10,8 +18,13 @@ export class AuthorController {
     return this.authorService.findAll();
   }
 
+  @Get(':id')
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.authorService.findById(id);
+  }
+
   @Post()
-  createAuthor(@Body() author: Author) {
+  createAuthor(@Body() author: CreateAuthorDto) {
     this.authorService.save(author);
   }
 }

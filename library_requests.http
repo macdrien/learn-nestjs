@@ -1,0 +1,16 @@
+### GET all authors
+GET http://localhost:3000/author
+
+### GET an author by its id
+@id =
+GET http://localhost:3000/author/{{id}}
+
+### POST Create an author
+POST http://localhost:3000/author
+Content-Type: application/json
+Accept: application/json
+
+{
+  "lastname": "Leroux",
+  "firstname": "Gaston"
+}

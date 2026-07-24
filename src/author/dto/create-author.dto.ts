@@ -1,5 +1,4 @@
-export class Author {
-  id: number;
+export class CreateAuthorDto {
   lastname: string;
   firstname: string;
 }
