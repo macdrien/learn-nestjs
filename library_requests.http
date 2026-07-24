@@ -1,5 +1,5 @@
 ### Id of the author to target
-@id = 3
+@id = 2
 
 ### GET all authors
 GET http://localhost:3000/author
@@ -26,3 +26,6 @@ Accept: application/json
   "lastname": "Leroux",
   "firstname": "Gaston"
 }
+
+### DELETE an author identified by its id
+DELETE http://localhost:3000/author/{{id}}

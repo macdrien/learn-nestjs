@@ -64,6 +64,13 @@ export class AuthorService {
     return author;
   }
 
+  deleteAuthorById(id: number) {
+    const authorIndex = this.authors.findIndex((elt) => elt.id === id);
+    if (authorIndex >= 0) {
+      this.authors.splice(authorIndex, 1);
+    }
+  }
+
   private validateThatAuthorDoesNotExist(
     lastname: string,
     firstname: string,

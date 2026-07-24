@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
-  ParseIntPipe, Patch,
+  ParseIntPipe,
+  Patch,
   Post,
 } from '@nestjs/common';
 import { AuthorService } from './author.service';
@@ -35,5 +37,10 @@ export class AuthorController {
     @Body() author: UpdateAuthorDto,
   ) {
     return this.authorService.updateAuthor(id, author);
+  }
+
+  @Delete(':id')
+  removeById(@Param('id', ParseIntPipe) id: number) {
+    this.authorService.deleteAuthorById(id);
   }
 }
