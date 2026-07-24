@@ -3,12 +3,13 @@ import {
   Controller,
   Get,
   Param,
-  ParseIntPipe,
+  ParseIntPipe, Patch,
   Post,
 } from '@nestjs/common';
 import { AuthorService } from './author.service';
 import { Author } from './entities/author.entity';
 import { CreateAuthorDto } from './dto/create-author.dto';
+import { UpdateAuthorDto } from './dto/update-author.dto';
 
 @Controller('author')
 export class AuthorController {
@@ -26,5 +27,13 @@ export class AuthorController {
   @Post()
   createAuthor(@Body() author: CreateAuthorDto) {
     this.authorService.save(author);
+  }
+
+  @Patch(':id')
+  updateAuthor(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() author: UpdateAuthorDto,
+  ) {
+    return this.authorService.updateAuthor(id, author);
   }
 }

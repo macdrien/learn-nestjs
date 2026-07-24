@@ -1,12 +1,24 @@
+### Id of the author to target
+@id = 3
+
 ### GET all authors
 GET http://localhost:3000/author
 
 ### GET an author by its id
-@id = 3
 GET http://localhost:3000/author/{{id}}
 
 ### POST Create an author
 POST http://localhost:3000/author
+Content-Type: application/json
+Accept: application/json
+
+{
+  "lastname": "Leroux",
+  "firstname": "Gaston"
+}
+
+### PATCH Update an author
+PATCH http://localhost:3000/author/{{id}}
 Content-Type: application/json
 Accept: application/json
 
